@@ -46,11 +46,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           /*3*/
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          Text('41'),
+          FavoriteWidget()
         ],
       ),
     );
@@ -202,4 +198,57 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+
+// Widget contains state (state is what actually defines markup, logic, etc)
+class FavoriteWidget extends StatefulWidget {
+  
+  // builds state for this widget
+  @override
+  State<StatefulWidget> createState() => _FavoriteWidgetState();
+
+}
+
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+
+  var _isFavorited = true;
+  var _favoriteCount = 41;
+  
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: EdgeInsets.all(0),
+          child: IconButton(
+            icon: _isFavorited ? Icon(Icons.star) : Icon(Icons.star_border),
+            color: Colors.red[500],
+            onPressed: _toggleFavorite,
+          ),
+        ),
+        SizedBox(
+          width: 18,
+          child: Text(_favoriteCount.toString()),
+        )
+      ]
+    );
+  }
+
+  void _toggleFavorite() {
+
+    // setState tells the UI to redraw the widget
+    setState(() {
+      if (_isFavorited) {
+        _isFavorited = false;
+        _favoriteCount = 40;
+      } else {
+        _isFavorited = true;
+        _favoriteCount = 41;
+      }
+    });
+  }
+
 }
